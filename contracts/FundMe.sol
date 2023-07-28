@@ -14,7 +14,10 @@ contract FundMe {
     function fund() public payable {
         // Want to be able to set a minimum fund amount in USD
         //  1. How do we send ETH to this contract?
-        require(msg.value >= 1e18, "Didn't send enough!"); // 1e18 == 1 * 10 ** 18 == 1000000000000000000
+        require(
+            getConversionRate(msg.value) >= minimumUsd * 1e18,
+            "Didn't send enough!"
+        );
 
         // What is reverting?
         // undo any action before, and send remaining gas back
@@ -22,18 +25,25 @@ contract FundMe {
 
     function withdraw() public {}
 
-    function getPrice() public {
+    function getPrice() public view returns (uint256) {
         // ABI      use an interface
         // Address  0x694AA1769357215DE4FAC081bf1f309aDC325306
-    }
-
-    function getVersion() public view returns (uint256) {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(
             0x694AA1769357215DE4FAC081bf1f309aDC325306
         );
+        (, int256 answer, , , ) = priceFeed.latestRoundData(); // ETH in terms of USD
 
-        return priceFeed.version();
+        return uint256(answer * 1e10);
     }
 
-    function getConversionRate() public {}
+    function getConversionRate(uint256 ethAmount)
+        public
+        view
+        returns (uint256)
+    {
+        uint256 ethPrice = getPrice();
+        uint256 ethAmountInUsd = (ethPrice * ethAmount) / 1e18; // 1e18 == 1 * 10 ** 18 == 1000000000000000000
+
+        return ethAmountInUsd;
+    }
 }
