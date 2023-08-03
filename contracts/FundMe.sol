@@ -17,19 +17,19 @@ contract FundMe {
     mapping(address => uint256) public addressToAmountFunded;
 
     function fund() public payable {
-        // Want to be able to set a minimum fund amount in USD
-        //  1. How do we send ETH to this contract?
         require(
             msg.value.getConversionRate() >= minimumUsd * 1e18,
             "Didn't send enough!"
         );
 
-        // What is reverting?
-        // undo any action before, and send remaining gas back
-
         funders.push(msg.sender);
         addressToAmountFunded[msg.sender] = msg.value;
     }
 
-    function withdraw() public {}
+    function withdraw() public {
+        for (uint256 funderIdx = 0; funderIdx < funders.length; funderIdx++) {
+            address funder = funders[funderIdx];
+            addressToAmountFunded[funder] = 0;
+        }
+    }
 }
