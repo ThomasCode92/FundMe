@@ -13,8 +13,13 @@ contract FundMe {
 
     uint256 public minimumUsd = 50;
 
+    address public owner;
     address[] public funders;
     mapping(address => uint256) public addressToAmountFunded;
+
+    constructor() {
+        owner = msg.sender;
+    }
 
     function fund() public payable {
         require(
