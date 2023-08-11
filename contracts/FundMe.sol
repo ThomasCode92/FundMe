@@ -23,6 +23,14 @@ contract FundMe {
         i_owner = msg.sender;
     }
 
+    receive() external payable {
+        fund();
+    }
+
+    fallback() external payable {
+        fund();
+    }
+
     function fund() public payable {
         require(
             msg.value.getConversionRate() >= MINIMUM_USD * 1e18,
