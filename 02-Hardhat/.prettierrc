@@ -3,7 +3,6 @@
   "singleQuote": true,
   "semi": true,
   "arrowParens": "avoid",
-  "plugins": ["prettier-plugin-solidity"],
   "overrides": [
     {
       "files": "*.sol",
