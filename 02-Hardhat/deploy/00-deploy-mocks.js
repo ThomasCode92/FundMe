@@ -6,8 +6,6 @@ const {
   INITIAL_ANSWER,
 } = require('../helper-hardhat-config');
 
-console.log('hello');
-
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deployer } = await getNamedAccounts();
   const { deploy, log } = deployments;
