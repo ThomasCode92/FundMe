@@ -19,8 +19,11 @@ contract FundMe {
     address[] public funders;
     mapping(address => uint256) public addressToAmountFunded;
 
-    constructor() {
+    AggregatorV3Interface public priceFeed;
+
+    constructor(address priceFeedAddress) {
         i_owner = msg.sender;
+        priceFeed = AggregatorV3Interface(priceFeedAddress);
     }
 
     receive() external payable {
@@ -33,7 +36,7 @@ contract FundMe {
 
     function fund() public payable {
         require(
-            msg.value.getConversionRate() >= MINIMUM_USD * 1e18,
+            msg.value.getConversionRate(priceFeed) >= MINIMUM_USD * 1e18,
             "Didn't send enough!"
         );
 
@@ -49,8 +52,10 @@ contract FundMe {
 
         funders = new address[](0);
 
-        (bool callSuccess, bytes memory dataReturned) = payable(msg.sender)
-            .call{value: address(this).balance}("");
+        (bool callSuccess, ) = payable(msg.sender).call{
+            value: address(this).balance
+        }("");
+
         require(callSuccess, "Call failed");
     }
 
