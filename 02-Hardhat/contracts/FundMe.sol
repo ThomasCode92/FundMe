@@ -1,11 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.8;
 
-// What this Contract should do:
-//  - Get funds from users
-//  - Withdraw funds
-//  - Set a minimum funding value in USD
-
 import "./PriceConverter.sol";
 
 error FundMe__NotOwner();
@@ -20,12 +15,12 @@ contract FundMe {
     using PriceConverter for uint256;
 
     uint256 public constant MINIMUM_USD = 50;
-    address public immutable i_owner;
+    address private immutable i_owner;
 
-    address[] public s_funders;
-    mapping(address => uint256) public s_addressToAmountFunded;
+    address[] private s_funders;
+    mapping(address => uint256) private s_addressToAmountFunded;
 
-    AggregatorV3Interface public s_priceFeed;
+    AggregatorV3Interface private s_priceFeed;
 
     modifier onlyOwner() {
         if (msg.sender != i_owner) {
@@ -53,6 +48,9 @@ contract FundMe {
         s_addressToAmountFunded[msg.sender] = msg.value;
     }
 
+    /**
+     *  @notice This function withdraw the funds of this contract
+     */
     function withdraw() public onlyOwner {
         address[] memory funders = s_funders;
 
@@ -68,5 +66,23 @@ contract FundMe {
         }("");
 
         require(callSuccess, "Call failed");
+    }
+
+    function getOwner() public view returns (address) {
+        return i_owner;
+    }
+
+    function getFunder(uint256 index) public view returns (address) {
+        return s_funders[index];
+    }
+
+    function getAddressToAmountFunded(
+        address funder
+    ) public view returns (uint256) {
+        return s_addressToAmountFunded[funder];
+    }
+
+    function getPriceFeed() public view returns (AggregatorV3Interface) {
+        return s_priceFeed;
     }
 }

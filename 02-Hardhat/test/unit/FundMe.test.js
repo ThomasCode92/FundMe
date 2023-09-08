@@ -23,7 +23,7 @@ describe('FundMe', async function () {
 
   describe('constructor', async function () {
     it('should set the aggregator address correctly', async function () {
-      const response = await fundMe.s_priceFeed();
+      const response = await fundMe.getPriceFeed();
       assert.equal(response, mockV3Aggregator.target);
     });
   });
@@ -35,13 +35,13 @@ describe('FundMe', async function () {
 
     it('should update the amount funded data structure', async function () {
       await fundMe.fund({ value: ETH_SEND_VALUE });
-      const response = await fundMe.s_addressToAmountFunded(deployer);
+      const response = await fundMe.getAddressToAmountFunded(deployer);
       assert.equal(response.toString(), ETH_SEND_VALUE.toString());
     });
 
     it('should add the funder to array of funders', async function () {
       await fundMe.fund({ value: ETH_SEND_VALUE });
-      const response = await fundMe.s_funders(0);
+      const response = await fundMe.getFunder(0);
       assert.equal(response, deployer);
     });
   });
@@ -108,11 +108,11 @@ describe('FundMe', async function () {
         (endingDeployerBalance + totalGasCost).toString(),
       );
 
-      await expect(fundMe.s_funders(0)).to.be.reverted;
+      await expect(fundMe.getFunder(0)).to.be.reverted;
 
       for (let i = 0; i < 5; i++) {
         const { address } = accounts[i];
-        const funderAddress = await fundMe.s_addressToAmountFunded(address);
+        const funderAddress = await fundMe.getAddressToAmountFunded(address);
 
         assert.equal(funderAddress, 0);
       }
