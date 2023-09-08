@@ -25,6 +25,12 @@ module.exports = {
     },
   },
   etherscan: { apiKey: ETHERSCAN_API_KEY },
+  gasReporter: {
+    enabled: true,
+    outputFile: 'gas-report.txt',
+    noColors: true,
+    currency: 'USD',
+  },
   namedAccounts: {
     deployer: { default: 0 },
   },
