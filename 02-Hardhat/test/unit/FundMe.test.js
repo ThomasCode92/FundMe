@@ -1,7 +1,13 @@
-const { deployments, ethers, getNamedAccounts } = require('hardhat');
+const { deployments, ethers, getNamedAccounts, network } = require('hardhat');
 const { assert, expect } = require('chai');
 
+const { developmentChains } = require('../../helper-hardhat-config');
+
 describe('FundMe', async function () {
+  if (!developmentChains.includes(network.name)) {
+    throw 'You need to be on a development chain to run tests';
+  }
+
   let mockV3Aggregator, deployer, fundMe;
 
   const ETH_SEND_VALUE = ethers.parseEther('1');
