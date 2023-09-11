@@ -1,8 +1,15 @@
 {
   "name": "hardhat-fundme",
+  "author": "ThomasCode92",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test": "yarn hardhat test",
+    "test:staging": "yarn hardhat test --network sepolia",
+    "lint:sol": "yarn solhint 'contracts/*.sol'",
+    "format": "yarn prettier --write .",
+    "coverage": "yarn hardhat coverage"
+  },
   "devDependencies": {
     "@chainlink/contracts": "^0.6.1",
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
