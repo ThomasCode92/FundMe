@@ -9,6 +9,7 @@ This _FundMe_ Smart Contract, a project by [freeCodeCamp](https://www.freecodeca
 
 In this repository, you can find different versions of the _"FundMe Smart Contract"_, built using different technologies and environments.
 
-| Technology | Description                                                | Resources                                                                                                   | Folder                                                                      |
-| ---------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| Remix IDE  | Introduction to Solidity Development<br />in the Remix IDE | [Remix FundMe](https://github.com/smartcontractkit/full-blockchain-solidity-course-js#lesson-4-remix-fund-me) | [01-RemixIDE](https://github.com/ThomasCode92/FundMe/tree/main/01-RemixIDE) |
+| Technology | Description                                                 | Resources                                                                                                          | Folder                                                                            |
+| ---------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+| Remix IDE  | Introduction to Solidity Development<br />in the Remix IDE  | [Remix FundMe](https://github.com/smartcontractkit/full-blockchain-solidity-course-js#lesson-4-remix-fund-me)      | [01-RemixIDE](https://github.com/ThomasCode92/FundMe/tree/main/01-RemixIDE)       |
+| Hardhat    | Developing and Testing Smart Contract<br />using JavaScript | [Hardhat Fund Me](https://github.com/smartcontractkit/full-blockchain-solidity-course-js#lesson-7-hardhat-fund-me) | [02-Hardhat](https://github.com/ThomasCode92/Simple-Storage/tree/main/02-Hardhat) |

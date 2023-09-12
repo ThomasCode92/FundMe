@@ -7,9 +7,13 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
 
   // Languages
   "[solidity]": {
+    "editor.tabSize": 4,
     "editor.defaultFormatter": "NomicFoundation.hardhat-solidity"
   }
 }
