@@ -1,4 +1,5 @@
 const connectBtn = document.getElementById('connect-btn');
+const fundBtn = document.getElementById('fund-btn');
 
 async function connect() {
   if (typeof window.ethereum !== 'undefined') {
@@ -11,4 +12,13 @@ async function connect() {
   }
 }
 
+async function fund(ethAmount) {
+  console.log(`Funding with ${ethAmount}ETH...`);
+
+  if (typeof window.ethereum !== 'undefined') {
+    console.log(ethers);
+  }
+}
+
 connectBtn.addEventListener('click', connect);
+fundBtn.addEventListener('click', fund.bind(this, 0.3));
