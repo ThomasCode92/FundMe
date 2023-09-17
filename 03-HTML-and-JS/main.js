@@ -4,6 +4,7 @@ const CONTRACT_ADDRESS = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512';
 
 const connectBtnElement = document.getElementById('connect-btn');
 const fundBtnElement = document.getElementById('fund-btn');
+const balanceBtnElement = document.getElementById('balance-btn');
 const fundInputElement = document.getElementById('fund');
 
 async function connect() {
@@ -39,6 +40,15 @@ async function fund() {
   }
 }
 
+async function getBalance() {
+  if (typeof window.ethereum !== 'undefined') {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const balance = await provider.getBalance(CONTRACT_ADDRESS);
+
+    console.log(ethers.utils.formatEther(balance));
+  }
+}
+
 function listenForTransactionMine(transactionResponse, provider) {
   console.log(`Mining ${transactionResponse.hash}...`);
 
@@ -55,3 +65,4 @@ function listenForTransactionMine(transactionResponse, provider) {
 
 connectBtnElement.addEventListener('click', connect);
 fundBtnElement.addEventListener('click', fund);
+balanceBtnElement.addEventListener('click', getBalance);
