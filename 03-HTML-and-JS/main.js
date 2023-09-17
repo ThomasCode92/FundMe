@@ -2,21 +2,23 @@ import abi from './abi.json' assert { type: 'json' };
 
 const CONTRACT_ADDRESS = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512';
 
-const connectBtn = document.getElementById('connect-btn');
-const fundBtn = document.getElementById('fund-btn');
+const connectBtnElement = document.getElementById('connect-btn');
+const fundBtnElement = document.getElementById('fund-btn');
+const fundInputElement = document.getElementById('fund');
 
 async function connect() {
   if (typeof window.ethereum !== 'undefined') {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-    connectBtn.innerText = 'Connected';
+    connectBtnElement.innerText = 'Connected';
     console.log('Connected to MetaMask');
   } else {
     console.log('Please install MetaMask');
   }
 }
 
-async function fund(ethAmount) {
+async function fund() {
+  const ethAmount = fundInputElement.value;
   console.log(`Funding with ${ethAmount}ETH...`);
 
   if (typeof window.ethereum !== 'undefined') {
@@ -51,5 +53,5 @@ function listenForTransactionMine(transactionResponse, provider) {
   });
 }
 
-connectBtn.addEventListener('click', connect);
-fundBtn.addEventListener('click', fund.bind(this, '0.3'));
+connectBtnElement.addEventListener('click', connect);
+fundBtnElement.addEventListener('click', fund);
